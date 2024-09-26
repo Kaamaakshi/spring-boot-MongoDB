@@ -12,10 +12,15 @@ import java.util.Optional;
 public class Employee_service {
     @Autowired
     Employee_repository employee_repository;
+
+    //inserting data
+
     public String insert(Employee employee){
         employee_repository.save(employee);
         return "data inserted successfully";
     }
+
+    //fetching data by passing id
 
     public Employee findById(int id){
         Optional<Employee> op =employee_repository.findById(id);
@@ -26,6 +31,9 @@ public class Employee_service {
             return null;
         }
     }
+
+    //fetching all data
+
     public List<Employee> findAll(){
        List<Employee> list= employee_repository.findAll();
        if(list.isEmpty()){
@@ -34,6 +42,9 @@ public class Employee_service {
            return  list;
        }
     }
+
+    //deleteing data by passing id
+
     public String deleteById(int id){
         Optional<Employee> op=employee_repository.findById(id);
         if(op.isPresent()){
@@ -43,6 +54,9 @@ public class Employee_service {
             return "data not found";
         }
     }
+
+    //deleting all data
+
     public String deleteAll(){
         List<Employee> list=employee_repository.findAll();
         if(list.isEmpty()){
@@ -52,6 +66,9 @@ public class Employee_service {
             return " all data deleted";
         }
     }
+
+    //updating data by passing id
+
     public String update(Employee employee, int id){
         Optional<Employee> op=employee_repository.findById(id);
         if(op.isPresent()){
@@ -59,11 +76,9 @@ public class Employee_service {
              emp.setName(employee.getName());
              emp.setSalary(employee.getSalary());
             return "data updated";
-
         }else{
 
             return  "data not found with this id"+ "  "+id;
-
         }
     }
 }
